@@ -19,7 +19,7 @@ class Todolist extends Component {
         super(props);
         this.state = {
             inputValue: '',
-            list: [],
+            list: ['學習英文', '學習中文'],
         }
     }
     render() {
@@ -30,11 +30,12 @@ class Todolist extends Component {
                     <input value={this.state.inputValue}
                         onChange={this.handleInputChange.bind(this)}
                     />
-                    <button>提交</button>
+                    <button onClick={this.handleInputClick.bind(this)}>提交</button>
                 </div>
                 <ul>
-                    <li>learning english</li>
-                    <li>learning chinese</li>
+                    {/* <li>learning english</li> */}
+                    {/* <li>learning chinese</li> */}
+                    {this.state.list.map((item, index) => <li>{item}</li>)}
                 </ul>
             </Fragment>
         )
@@ -48,6 +49,15 @@ class Todolist extends Component {
             inputValue: e.target.value
         })
         console.log(this.state.inputValue)
+    }
+    handleInputClick(e) {
+        console.log('click');
+        this.setState({
+            // list: list.push(e.target.value)
+            // 這種方式會造成整個陣列覆寫
+            list: [...this.state.list, this.state.inputValue]
+
+        })
     }
 }
 
