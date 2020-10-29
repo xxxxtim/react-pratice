@@ -1,18 +1,6 @@
 import React, { Component, Fragment } from 'react';
-// function Todolist() {
-//     return (
-//         <Fragment>
-//             <div>
-//                 <input />
-//                 <button>提交</button>
-//             </div>
-//             <ul>
-//                 <li>learning english</li>
-//                 <li>learning chinese</li>
-//             </ul>
-//         </Fragment>
-//     )
-// }
+// import css
+import './todolist.css';
 
 class Todolist extends Component {
     constructor(props) {
@@ -26,8 +14,11 @@ class Todolist extends Component {
 
         return (
             <Fragment>
+                <label htmlFor="insertArea">請輸入內容</label>
                 <div>
-                    <input value={this.state.inputValue}
+                    <input
+                        id='insertArea'
+                        value={this.state.inputValue}
                         onChange={this.handleInputChange.bind(this)}
                     />
                     <button onClick={this.handleInputClick.bind(this)}>提交</button>
@@ -36,9 +27,12 @@ class Todolist extends Component {
                     {/* <li>learning english</li> */}
                     {/* <li>learning chinese</li> */}
                     {this.state.list.map((item, index) =>
-                        <div>
-                            <li key={index} onClick={this.handleItemDelete.bind(this, index)}>{item}</li>
-                            <button key={index} onClick={this.handleItemDelete.bind(this, index)}>X</button>
+                        <div className='container'>
+                            <li key={index} onClick={this.handleItemDelete.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
+                                {/* {item} */}
+
+                            </li>
+                            {/* <button onClick={this.handleItemDelete.bind(this, index)}>X</button> */}
                         </div>
                     )}
 
