@@ -36,7 +36,12 @@ class Todolist extends Component {
                     {/* <li>learning english</li> */}
                     {/* <li>learning chinese</li> */}
                     {this.state.list.map((item, index) =>
-                        <li key={index} onClick={this.handleItemDelete.bind(this, index)}>{item}</li>)}
+                        <div>
+                            <li key={index} onClick={this.handleItemDelete.bind(this, index)}>{item}</li>
+                            <button key={index} onClick={this.handleItemDelete.bind(this, index)}>X</button>
+                        </div>
+                    )}
+
                 </ul>
             </Fragment>
         )
