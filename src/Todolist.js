@@ -35,7 +35,8 @@ class Todolist extends Component {
                 <ul>
                     {/* <li>learning english</li> */}
                     {/* <li>learning chinese</li> */}
-                    {this.state.list.map((item, index) => <li>{item}</li>)}
+                    {this.state.list.map((item, index) =>
+                        <li key={index} onClick={this.handleItemDelete.bind(this, index)}>{item}</li>)}
                 </ul>
             </Fragment>
         )
@@ -55,8 +56,16 @@ class Todolist extends Component {
         this.setState({
             // list: list.push(e.target.value)
             // 這種方式會造成整個陣列覆寫
-            list: [...this.state.list, this.state.inputValue]
+            list: [...this.state.list, this.state.inputValue],
+            inputValue: '',
 
+        })
+    }
+    handleItemDelete(index) {
+        const list = [...this.state.list];
+        list.splice(index, 1);
+        this.setState({
+            list: list
         })
     }
 }
