@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 // import css
 import './todolist.css';
+// import component 
+import Todoitem from './Todoitem'
 
 class Todolist extends Component {
     constructor(props) {
@@ -27,13 +29,19 @@ class Todolist extends Component {
                     {/* <li>learning english</li> */}
                     {/* <li>learning chinese</li> */}
                     {this.state.list.map((item, index) =>
-                        <div className='container'>
-                            <li key={index} onClick={this.handleItemDelete.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
-                                {/* {item} */}
+                        // <div className='container'>
+                        //     <li key={index}
+                        //         onClick={this.handleItemDelete.bind(this, index)}
+                        //         dangerouslySetInnerHTML={{ __html: item }}>
+                        //         {/* {item} */}
 
-                            </li>
-                            {/* <button onClick={this.handleItemDelete.bind(this, index)}>X</button> */}
-                        </div>
+                        //     </li>
+                        //     {/* <button onClick={this.handleItemDelete.bind(this, index)}>X</button> */}
+                        // </div>
+
+                        // 使用其他component
+                        // 父層component 傳值給子層
+                        <Todoitem content={item} />
                     )}
 
                 </ul>
