@@ -13,7 +13,6 @@ class Todolist extends Component {
         }
     }
     render() {
-
         return (
             <Fragment>
                 <label htmlFor="insertArea">請輸入內容</label>
@@ -29,8 +28,8 @@ class Todolist extends Component {
                     {/* <li>learning english</li> */}
                     {/* <li>learning chinese</li> */}
                     {this.state.list.map((item, index) =>
-                        // <div className='container'>
-                        //     <li key={index}
+                        // <div className='container' key={index}>
+                        //     <li
                         //         onClick={this.handleItemDelete.bind(this, index)}
                         //         dangerouslySetInnerHTML={{ __html: item }}>
                         //         {/* {item} */}
@@ -41,7 +40,12 @@ class Todolist extends Component {
 
                         // 使用其他component
                         // 父層component 傳值給子層
-                        <Todoitem content={item} />
+                        <Todoitem
+                            content={item}
+                            index={index}
+                            key={index}
+                            deleteItem={this.handleItemDelete.bind(this)}
+                        />
                     )}
 
                 </ul>
@@ -69,6 +73,7 @@ class Todolist extends Component {
         })
     }
     handleItemDelete(index) {
+        console.log('this is handleItemDelete')
         const list = [...this.state.list];
         list.splice(index, 1);
         this.setState({
