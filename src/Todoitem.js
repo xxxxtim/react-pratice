@@ -7,22 +7,25 @@ class TodoItem extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this)
     }
-    componentWillReceiveProps() {
-        console.log('componentWillReceiveProps')
-    }
-    componentWillUmount() {
-        console.log('componentWillUmount')
+    // 主要用於性能改善
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('child shouldComponentUpdate')
+        if (nextProps.content !== this.props.content) {
+            return true
+        } else {
+            return false
+        }
     }
     render() {
-        const { content, test } = this.props;
+        // const { content, test } = this.props;
         return (
             // 接收父層傳過來的值
             // <div onClick={this.handleClick.bind(this)}>{this.props.content}</div>
             <div
                 onClick={this.handleClick}
             >
-                {/* {this.props.content} */}
-                {test}-{content}
+
+                {this.props.test}-{this.props.content}
             </div>
         )
     }
@@ -30,6 +33,7 @@ class TodoItem extends Component {
         const { deleteItem, index } = this.props
         console.log('component alert');
         console.log(this.props.index)
+        console.log(this.props.content)
         // 調用父層的method和參數
         // this.props.deleteItem(this.props.index)
         deleteItem(index)
