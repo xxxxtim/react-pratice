@@ -7,8 +7,14 @@ class TodoItem extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this)
     }
+    componentWillReceiveProps() {
+        console.log('componentWillReceiveProps')
+    }
+    componentWillUmount() {
+        console.log('componentWillUmount')
+    }
     render() {
-        const { content } = this.props;
+        const { content, test } = this.props;
         return (
             // 接收父層傳過來的值
             // <div onClick={this.handleClick.bind(this)}>{this.props.content}</div>
@@ -16,7 +22,7 @@ class TodoItem extends Component {
                 onClick={this.handleClick}
             >
                 {/* {this.props.content} */}
-                {content}
+                {test}-{content}
             </div>
         )
     }
@@ -29,11 +35,16 @@ class TodoItem extends Component {
         deleteItem(index)
     }
 }
-// 進行型別驗證
+// 進行父層傳值過來的型別驗證
 TodoItem.propTypes = {
+    // isRequired:表示一定要父層傳遞參數，如果沒有傳遞參數則會報錯
+    test: PropTypes.string.isRequired,
     content: PropTypes.string,
     deleteItem: PropTypes.func,
     index: PropTypes.number,
-
+}
+// 如果父層沒有傳遞參數，則會給傳遞參數一個預設值
+TodoItem.defaultProps = {
+    test: 'hello'
 }
 export default TodoItem

@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import './todolist.css';
 // import component 
 import Todoitem from './Todoitem'
+// import Test from './Test'
 
 class Todolist extends Component {
     constructor(props) {
@@ -12,6 +13,7 @@ class Todolist extends Component {
             list: ['學習英文', '學習中文'],
         }
     }
+
     render() {
         return (
             <Fragment>
@@ -22,7 +24,10 @@ class Todolist extends Component {
                         value={this.state.inputValue}
                         onChange={this.handleInputChange.bind(this)}
                     />
-                    <button onClick={this.handleInputClick.bind(this)}>提交</button>
+                    {/* <button onClick={this.handleInputClick.bind(this)}>提交</button> */}
+                    {/* 使用arrow function 會自動綁定this */}
+                    <button onClick={() => this.handleInputClick()}>提交</button>
+
                 </div>
                 <ul>
                     {/* <li>learning english</li> */}
@@ -47,7 +52,9 @@ class Todolist extends Component {
                             deleteItem={this.handleItemDelete.bind(this)}
                         />
                     )}
-
+                    {/* <Test
+                        content2Test={this.state.inputValue}
+                    /> */}
                 </ul>
             </Fragment>
         )
@@ -62,15 +69,15 @@ class Todolist extends Component {
         })
         console.log(this.state.inputValue)
     }
-    handleInputClick(e) {
+    async handleInputClick(e) {
         console.log('click');
-        this.setState({
+        await this.setState({
             // list: list.push(e.target.value)
             // 這種方式會造成整個陣列覆寫
             list: [...this.state.list, this.state.inputValue],
             inputValue: '',
-
-        })
+        });
+        console.log('this apple')
     }
     handleItemDelete(index) {
         console.log('this is handleItemDelete')
