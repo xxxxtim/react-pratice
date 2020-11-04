@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // 這邊可以想成引入App這一個component
 // 使用 JSX語法中 component 名字一定要大寫
-// import App from './App';
 import Todolist from './Todolist';
 
 ReactDOM.render(
