@@ -21,9 +21,9 @@ class TodoList extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleStoreChange = this.handleStoreChange.bind(this);
         this.handleBtnClick = this.handleBtnClick.bind(this)
-        // 監聽state的資料，如果發生改變 則觸發handleStoreChange
+        // 監聽Store中state的資料，如果發生改變 則觸發handleStoreChange
         store.subscribe(this.handleStoreChange)
-        console.log(this.state)
+        console.log('this.state', this.state)
     }
     render() {
         return (
@@ -38,7 +38,14 @@ class TodoList extends Component {
                 <List
                     bordered
                     dataSource={this.state.list}
-                    renderItem={item => <List.Item>{item}</List.Item>}
+                    renderItem={
+                        (item, index) => (
+                            // 寫法1
+                            // <List.Item onClick={this.handleItemDelete.bind(this, index)}>{item}</List.Item>)
+                            // 寫法2
+                            <List.Item onClick={() => this.handleItemDelete(index)}>{item}</List.Item>)
+
+                    }
                     style={{ marginTop: '10px', width: '300px' }}
                 />
             </div>
@@ -47,10 +54,6 @@ class TodoList extends Component {
     }
     handleInputChange(e) {
         console.log(e.target.value)
-        const action = {
-            type: 'changeData',
-            value: e.target.value,
-        }
         // store.dispatch(action)
         store.dispatch({
             type: 'changeData',
@@ -66,6 +69,14 @@ class TodoList extends Component {
         store.dispatch({
             type: 'addInputValue',
         })
+    }
+    handleItemDelete(index) {
+        // alert(index)
+        store.dispatch({
+            type: 'deleteItem',
+            index
+        })
+
     }
 }
 export default TodoList

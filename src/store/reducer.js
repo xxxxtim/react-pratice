@@ -9,6 +9,7 @@ const defaultState = {
     ]
 };
 // 重要 reducer 可以接收state 但是不能直接改變state的值
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = defaultState, action) => {
     console.log(state, action);
     if (action.type === 'changeData') {
@@ -23,6 +24,11 @@ export default (state = defaultState, action) => {
         newState.list.push(newState.inputValue);
         newState.inputValue = '';
         console.log(newState);
+        return newState
+    }
+    if (action.type === 'deleteItem') {
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list.splice(action.index, 1);
         return newState
     }
     return state
