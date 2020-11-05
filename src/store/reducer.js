@@ -17,7 +17,13 @@ export default (state = defaultState, action) => {
         newState.inputValue = action.value;
         console.log('newState', newState);
         return newState
-
+    }
+    if (action.type === 'addInputValue') {
+        const newState = JSON.parse(JSON.stringify(state));
+        newState.list.push(newState.inputValue);
+        newState.inputValue = '';
+        console.log(newState);
+        return newState
     }
     return state
 

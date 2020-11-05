@@ -16,8 +16,13 @@ import store from './store'
 class TodoList extends Component {
     constructor(props) {
         super(props);
+        // 獲取state的資料
         this.state = store.getState()
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleStoreChange = this.handleStoreChange.bind(this);
+        this.handleBtnClick = this.handleBtnClick.bind(this)
+        // 監聽state的資料，如果發生改變 則觸發handleStoreChange
+        store.subscribe(this.handleStoreChange)
         console.log(this.state)
     }
     render() {
@@ -29,7 +34,7 @@ class TodoList extends Component {
                     style={{ width: '300px', marginRight: '10px' }}
                     onChange={this.handleInputChange}
                 />
-                <Button type="primary">提交</Button>
+                <Button type="primary" onClick={this.handleBtnClick}>提交</Button>
                 <List
                     bordered
                     dataSource={this.state.list}
@@ -50,6 +55,16 @@ class TodoList extends Component {
         store.dispatch({
             type: 'changeData',
             value: e.target.value
+        })
+    }
+    handleStoreChange() {
+        this.setState(
+            store.getState()
+        )
+    }
+    handleBtnClick() {
+        store.dispatch({
+            type: 'addInputValue',
         })
     }
 }
