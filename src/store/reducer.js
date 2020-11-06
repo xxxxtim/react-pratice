@@ -12,25 +12,26 @@ const defaultState = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = defaultState, action) => {
     console.log(state, action);
-    if (action.type === 'changeData') {
-        // 舊有資料進行拷貝
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.inputValue = action.value;
-        console.log('newState', newState);
-        return newState
+    const newState = JSON.parse(JSON.stringify(state));
+    switch (action.type) {
+        case 'changeData':
+            newState.inputValue = action.value;
+            console.log('newState', newState);
+            return newState
+
+        case 'addInputValue':
+            newState.list.push(newState.inputValue);
+            newState.inputValue = '';
+            console.log(newState);
+            return newState
+
+        case 'deleteItem':
+            newState.list.splice(action.index, 1);
+            return newState
+
+        default: return state
     }
-    if (action.type === 'addInputValue') {
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.list.push(newState.inputValue);
-        newState.inputValue = '';
-        console.log(newState);
-        return newState
-    }
-    if (action.type === 'deleteItem') {
-        const newState = JSON.parse(JSON.stringify(state));
-        newState.list.splice(action.index, 1);
-        return newState
-    }
-    return state
+
+
 
 }
