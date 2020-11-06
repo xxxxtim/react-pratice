@@ -12,6 +12,7 @@ const defaultState = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = defaultState, action) => {
     console.log(state, action);
+    // 舊有資料進行拷貝
     const newState = JSON.parse(JSON.stringify(state));
     switch (action.type) {
         case 'changeData':
@@ -31,7 +32,5 @@ export default (state = defaultState, action) => {
 
         default: return state
     }
-
-
-
 }
+

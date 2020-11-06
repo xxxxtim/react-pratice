@@ -4,6 +4,8 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import { Input, Button, List } from 'antd';
 // 引入store
 import store from './store'
+// 引入actionCreator
+import { changeDataAction, handleBtnClickAction, handleItemDeleteAction } from './store/actionCreator'
 
 // const data = [
 //     'Racing car sprays burning fuel into crowd.',
@@ -55,10 +57,13 @@ class TodoList extends Component {
     handleInputChange(e) {
         console.log(e.target.value)
         // store.dispatch(action)
-        store.dispatch({
-            type: 'changeData',
-            value: e.target.value
-        })
+        // store.dispatch({
+        //     type: 'changeData',
+        //     value: e.target.value
+        // })
+
+        //使用actionCreators 
+        store.dispatch(changeDataAction(e.target.value))
     }
     handleStoreChange() {
         this.setState(
@@ -66,17 +71,18 @@ class TodoList extends Component {
         )
     }
     handleBtnClick() {
-        store.dispatch({
-            type: 'addInputValue',
-        })
+        // store.dispatch({
+        //     type: 'addInputValue',
+        // })
+        store.dispatch(handleBtnClickAction())
     }
     handleItemDelete(index) {
         // alert(index)
-        store.dispatch({
-            type: 'deleteItem',
-            index
-        })
-
+        // store.dispatch({
+        //     type: 'deleteItem',
+        //     index
+        // })
+        store.dispatch(handleItemDeleteAction(index))
     }
 }
 export default TodoList
