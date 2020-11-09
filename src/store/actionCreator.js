@@ -13,9 +13,17 @@ const handleItemDeleteAction = (index) => ({
     type: 'deleteItem',
     index
 })
+// getAPI data and init list
+const initListAction = (data) => ({
+    type: 'initList',
+    data
+}
+
+)
 
 export {
     changeDataAction,
     handleBtnClickAction,
-    handleItemDeleteAction
+    handleItemDeleteAction,
+    initListAction
 }

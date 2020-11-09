@@ -30,6 +30,11 @@ export default (state = defaultState, action) => {
             newState.list.splice(action.index, 1);
             return newState
 
+        case 'initList':
+            newState.list = action.data;
+            return newState
+
+
         default: return state
     }
 }

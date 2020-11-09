@@ -4,9 +4,11 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 // 引入store
 import store from './store'
 // 引入actionCreator
-import { changeDataAction, handleBtnClickAction, handleItemDeleteAction } from './store/actionCreator'
+import { changeDataAction, handleBtnClickAction, handleItemDeleteAction, initListAction } from './store/actionCreator'
 // 引入UI component 
 import TodoListUI from './store/TodoListUI'
+// 引入axios
+import axios from 'axios'
 // const data = [
 //     'Racing car sprays burning fuel into crowd.',
 //     'Japanese princess to wed commoner.',
@@ -39,6 +41,16 @@ class TodoList extends Component {
             />
 
         )
+    }
+    async componentDidMount() {
+        try {
+            const response = await axios.get('https://my-json-server.typicode.com/varbark/fake_json_api/cities')
+            console.log(response.data)
+            store.dispatch(initListAction(response.data))
+        } catch (error) {
+            console.log(error)
+        }
+
     }
     handleInputChange(e) {
         console.log(e.target.value)
