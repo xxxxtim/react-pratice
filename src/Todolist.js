@@ -4,7 +4,13 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 // 引入store
 import store from './store'
 // 引入actionCreator
-import { changeDataAction, handleBtnClickAction, handleItemDeleteAction, initListAction } from './store/actionCreator'
+import {
+    changeDataAction,
+    handleBtnClickAction,
+    handleItemDeleteAction,
+    initListAction,
+    getTodoList,// redux-thunk
+} from './store/actionCreator'
 // 引入UI component 
 import TodoListUI from './store/TodoListUI'
 // 引入axios
@@ -42,14 +48,16 @@ class TodoList extends Component {
 
         )
     }
-    async componentDidMount() {
-        try {
-            const response = await axios.get('https://my-json-server.typicode.com/varbark/fake_json_api/cities')
-            console.log(response.data)
-            store.dispatch(initListAction(response.data))
-        } catch (error) {
-            console.log(error)
-        }
+    componentDidMount() {
+        // try {
+        //     const response = await axios.get('https://my-json-server.typicode.com/varbark/fake_json_api/cities')
+        //     // console.log(response.data)
+        //     store.dispatch(initListAction(response.data))
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        // console.log(getTodoList())
+        store.dispatch(getTodoList())
 
     }
     handleInputChange(e) {
