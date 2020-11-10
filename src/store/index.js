@@ -1,6 +1,5 @@
-import { createStore, applyMiddleware, compose } from 'redux';// 引入reducer.js 和redux
+import { createStore, compose } from 'redux';// 引入reducer.js 和redux
 import reducer from './reducer'
-import thunk from 'redux-thunk';
 // const store = createStore(
 //     reducer,
 //     applyMiddleware(thunk),
@@ -16,8 +15,6 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(
-    applyMiddleware(thunk),
-    // other store enhancers if any
 );
 const store = createStore(reducer, enhancer);
 
