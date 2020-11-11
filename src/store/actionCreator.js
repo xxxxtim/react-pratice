@@ -15,13 +15,19 @@ const handleItemDeleteAction = (index) => ({
     type: 'deleteItem',
     index
 })
-// getAPI data and init list
+// getAPI data and init list 
 const initListAction = (data) => ({
     type: 'initList',
     data
 })
+//  use redux-saga
+const getInitList = () => ({
+    type: 'getInitList',
 
-// redux-saga 
+}
+)
+
+
 
 
 export {
@@ -29,4 +35,5 @@ export {
     handleBtnClickAction,
     handleItemDeleteAction,
     initListAction,
+    getInitList
 }

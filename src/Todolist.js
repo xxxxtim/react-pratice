@@ -9,6 +9,7 @@ import {
     handleBtnClickAction,
     handleItemDeleteAction,
     initListAction,
+    getInitList
 } from './store/actionCreator'
 // 引入UI component 
 import TodoListUI from './store/TodoListUI'
@@ -47,14 +48,16 @@ class TodoList extends Component {
 
         )
     }
-    async componentDidMount() {
-        try {
-            const response = await axios.get('https://my-json-server.typicode.com/varbark/fake_json_api/cities')
-            // console.log(response.data)
-            store.dispatch(initListAction(response.data))
-        } catch (error) {
-            console.log(error)
-        }
+    componentDidMount() {
+        // try {
+        //     const response = await axios.get('https://my-json-server.typicode.com/varbark/fake_json_api/cities')
+        //     // console.log(response.data)
+        //     store.dispatch(initListAction(response.data))
+        // } catch (error) {
+        //     console.log(error)
+        // }
+        console.log(getInitList())
+        store.dispatch(getInitList())
 
     }
     handleInputChange(e) {

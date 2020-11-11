@@ -1,13 +1,11 @@
-import { createStore, compose } from 'redux';// 引入reducer.js 和redux
+import { createStore, compose, applyMiddleware } from 'redux';// 引入reducer.js 和redux
 import reducer from './reducer'
-// const store = createStore(
-//     reducer,
-//     applyMiddleware(thunk),
-//     // redux套件要增加下面一行
-//     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// );
+import createSagaMiddleware from 'redux-saga'
+// 在store下建立一個 sagas.js 並且引入
+import TodoSagas from './sagas'
 
-
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware()
 const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -15,7 +13,10 @@ const composeEnhancers =
         }) : compose;
 
 const enhancer = composeEnhancers(
+    applyMiddleware(sagaMiddleware)
 );
 const store = createStore(reducer, enhancer);
+// then run the saga
+sagaMiddleware.run(TodoSagas)
 
 export default store;
