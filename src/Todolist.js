@@ -7,38 +7,65 @@ import { changeDataAction, handleBtnClickAction, handleItemDeleteAction } from '
 //  使用redux connect
 import { connect } from 'react-redux'
 
-class TodoList extends Component {
+// class TodoList extends Component {
 
-  render() {
-    return (
-      <div style={{ marginTop: '10px', marginLeft: '10px' }}>
-        <Input
-          // use react-redux
-          value={this.props.inputValue}
-          placeholder="請輸入資料"
-          style={{ width: '300px', marginRight: '10px' }}
-          onChange={this.props.changeInputValue}
+//   render() {
+//     return (
+//       <div style={{ marginTop: '10px', marginLeft: '10px' }}>
+//         <Input
+//           // use react-redux
+//           value={this.props.inputValue}
+//           placeholder="請輸入資料"
+//           style={{ width: '300px', marginRight: '10px' }}
+//           onChange={this.props.changeInputValue}
 
-        />
-        <Button type="primary"
-          onClick={this.props.changeBtnClick}
-        >提交</Button>
-        <List
-          bordered
-          dataSource={this.props.list}
-          renderItem={
-            (item, index) => (
-              <List.Item onClick={() => this.props.changeItemDelete(index)}>{item}</List.Item>)
+//         />
+//         <Button type="primary"
+//           onClick={this.props.changeBtnClick}
+//         >提交</Button>
+//         <List
+//           bordered
+//           dataSource={this.props.list}
+//           renderItem={
+//             (item, index) => (
+//               <List.Item onClick={() => this.props.changeItemDelete(index)}>{item}</List.Item>)
 
-          }
-          style={{ marginTop: '10px', width: '300px' }}
-        />
-      </div>
+//           }
+//           style={{ marginTop: '10px', width: '300px' }}
+//         />
+//       </div>
 
-    )
-  }
+//     )
+//   }
 
-}
+// }
+
+// 改寫成無狀態component
+const TodoList = (props) => (
+  <div style={{ marginTop: '10px', marginLeft: '10px' }}>
+    <Input
+      // use react-redux
+      value={props.inputValue}
+      placeholder="請輸入資料"
+      style={{ width: '300px', marginRight: '10px' }}
+      onChange={props.changeInputValue}
+
+    />
+    <Button type="primary"
+      onClick={props.changeBtnClick}
+    >提交</Button>
+    <List
+      bordered
+      dataSource={props.list}
+      renderItem={
+        (item, index) => (
+          <List.Item onClick={() => props.changeItemDelete(index)}>{item}</List.Item>)
+
+      }
+      style={{ marginTop: '10px', width: '300px' }}
+    />
+  </div>
+)
 
 const mapState2Props = (state) => {
   return {
