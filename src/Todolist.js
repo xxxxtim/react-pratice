@@ -7,6 +7,9 @@ import store from './store'
 // 引入actionCreator
 import { changeDataAction, handleBtnClickAction, handleItemDeleteAction } from './store/actionCreator'
 
+//  使用redux connect
+import { connect } from 'react-redux'
+
 // const data = [
 //     'Racing car sprays burning fuel into crowd.',
 //     'Japanese princess to wed commoner.',
@@ -31,21 +34,31 @@ class TodoList extends Component {
         return (
             <div style={{ marginTop: '10px', marginLeft: '10px' }}>
                 <Input
-                    value={this.state.inputValue}
+                    // value={this.state.inputValue}
+                    // use react-redux
+                    value={this.props.inputValue}
                     placeholder="請輸入資料"
                     style={{ width: '300px', marginRight: '10px' }}
-                    onChange={this.handleInputChange}
+                    // onChange={this.handleInputChange}
+                    onChange={this.props.changeInputValue}
+
                 />
-                <Button type="primary" onClick={this.handleBtnClick}>提交</Button>
+                <Button type="primary"
+                    // onClick={this.handleBtnClick}
+                    onClick={this.props.changeBtnClick}
+                >提交</Button>
                 <List
                     bordered
-                    dataSource={this.state.list}
+                    // dataSource={this.state.list}
+                    // use react-redux
+                    dataSource={this.props.list}
                     renderItem={
                         (item, index) => (
                             // 寫法1
                             // <List.Item onClick={this.handleItemDelete.bind(this, index)}>{item}</List.Item>)
                             // 寫法2
-                            <List.Item onClick={() => this.handleItemDelete(index)}>{item}</List.Item>)
+                            // <List.Item onClick={() => this.handleItemDelete(index)}>{item}</List.Item>)
+                            <List.Item onClick={() => this.props.changeItemDelete(index)}>{item}</List.Item>)
 
                     }
                     style={{ marginTop: '10px', width: '300px' }}
@@ -56,12 +69,6 @@ class TodoList extends Component {
     }
     handleInputChange(e) {
         console.log(e.target.value)
-        // store.dispatch(action)
-        // store.dispatch({
-        //     type: 'changeData',
-        //     value: e.target.value
-        // })
-
         //使用actionCreators 
         store.dispatch(changeDataAction(e.target.value))
     }
@@ -84,5 +91,31 @@ class TodoList extends Component {
         // })
         store.dispatch(handleItemDeleteAction(index))
     }
+
 }
-export default TodoList
+
+const mapState2Props = (state) => {
+    return {
+        inputValue: state.inputValue,
+        list: state.list
+    }
+}
+// store.props.dispatch
+const mapDispatch2Props = (dispatch) => {
+    return {
+        changeInputValue(e) {
+            dispatch(changeDataAction(e.target.value))
+
+        },
+        changeBtnClick() {
+            dispatch(handleBtnClickAction())
+        },
+        changeItemDelete(index) {
+            dispatch(handleItemDeleteAction(index))
+        }
+    }
+}
+// export default TodoList
+
+// redux 
+export default connect(mapState2Props, mapDispatch2Props)(TodoList)
